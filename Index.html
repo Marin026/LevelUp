@@ -2,33 +2,39 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>GameZone Store</title>
+  <title>LeveUP</title>
   <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
   <header>
-    <h1>GameZone Store</h1>
-    <a href="carrito.html">🛒 Ver Carrito</a>
+    <h1>LeveUP</h1>
+    <a href="carrito.html">🛒 Carrito</a>
   </header>
 
   <main class="productos">
     <div class="producto">
-      <img src="juego1.jpg" alt="Cyber Blaster">
-      <h2>Cyber Blaster</h2>
-      <p>$29.99</p>
-      <button onclick="agregarAlCarrito('Cyber Blaster', 29.99)">Añadir al carrito</button>
+      <img src="https://i.pinimg.com/736x/e8/ff/97/e8ff976688f5a8ab890d29937d75ca4e.jpg" alt="Devil May Cry 5">
+      <h2>Devil May Cry 5</h2>
+      <p class="precio" data-precio="50000"></p>
+      <button onclick="agregarAlCarrito('Devil May Cry 5', 50000)">Añadir al carrito</button>
     </div>
     <div class="producto">
-      <img src="juego2.jpg" alt="Pixel Adventure">
-      <h2>Pixel Adventure</h2>
-      <p>$14.99</p>
-      <button onclick="agregarAlCarrito('Pixel Adventure', 14.99)">Añadir al carrito</button>
+      <img src="https://i.pinimg.com/736x/66/48/ce/6648ce96f855af1ff2642068fca24b53.jpg" alt="Resident Evil 4">
+      <h2>Resident Evil 4</h2>
+      <p class="precio" data-precio="55000"></p>
+      <button onclick="agregarAlCarrito('Resident Evil 4', 55000)">Añadir al carrito</button>
     </div>
     <div class="producto">
-      <img src="juego3.jpg" alt="Racing Turbo">
-      <h2>Racing Turbo</h2>
-      <p>$24.99</p>
-      <button onclick="agregarAlCarrito('Racing Turbo', 24.99)">Añadir al carrito</button>
+      <img src="https://i.pinimg.com/736x/1a/c3/09/1ac309456a04db26f546feda5b2d7184.jpg" alt="Naruto Storm 4">
+      <h2>Naruto Storm 4</h2>
+      <p class="precio" data-precio="60000"></p>
+      <button onclick="agregarAlCarrito('Naruto Storm 4', 60000)">Añadir al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://i.pinimg.com/736x/e3/60/ed/e360ed20c2d96082b541bc93f6edf64b.jpg" alt="The Last of Us Part II">
+      <h2>The Last of Us Part II</h2>
+      <p class="precio" data-precio="70000"></p>
+      <button onclick="agregarAlCarrito('The Last of Us Part II', 70000)">Añadir al carrito</button>
     </div>
   </main>
 
@@ -40,6 +46,18 @@
       localStorage.setItem("carrito", JSON.stringify(carrito));
       alert(`"${nombre}" añadido al carrito.`);
     }
+
+    // Formatear precios a COP
+    const formateadorCOP = new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 0
+    });
+
+    document.querySelectorAll('.precio').forEach(p => {
+      const precio = p.getAttribute('data-precio');
+      p.textContent = formateadorCOP.format(precio);
+    });
   </script>
 </body>
 </html>
