@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>GameZone Store</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header>
+    <h1>GameZone Store</h1>
+    <a href="carrito.html">🛒 Ver Carrito</a>
+  </header>
+
+  <main class="productos">
+    <div class="producto">
+      <img src="juego1.jpg" alt="Cyber Blaster">
+      <h2>Cyber Blaster</h2>
+      <p>$29.99</p>
+      <button onclick="agregarAlCarrito('Cyber Blaster', 29.99)">Añadir al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="juego2.jpg" alt="Pixel Adventure">
+      <h2>Pixel Adventure</h2>
+      <p>$14.99</p>
+      <button onclick="agregarAlCarrito('Pixel Adventure', 14.99)">Añadir al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="juego3.jpg" alt="Racing Turbo">
+      <h2>Racing Turbo</h2>
+      <p>$24.99</p>
+      <button onclick="agregarAlCarrito('Racing Turbo', 24.99)">Añadir al carrito</button>
+    </div>
+  </main>
+
+  <script>
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    function agregarAlCarrito(nombre, precio) {
+      carrito.push({ nombre, precio });
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      alert(`"${nombre}" añadido al carrito.`);
+    }
+  </script>
+</body>
+</html>
