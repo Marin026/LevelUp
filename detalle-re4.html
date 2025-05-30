@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Resident Evil 4 - Detalles</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header>
+    <h1>Resident Evil 4</h1>
+    <a href="index.html">← Volver a la tienda</a>
+  </header>
+
+  <main>
+    <img src="https://i.pinimg.com/736x/66/48/ce/6648ce96f855af1ff2642068fca24b53.jpg" alt="Resident Evil 4" width="300">
+    <p><strong>Precio:</strong> <span id="precio"></span></p>
+    <p>
+      Resident Evil 4 es un juego de survival horror aclamado mundialmente, donde Leon S. Kennedy se embarca en una misión 
+      para rescatar a la hija del presidente en una aldea infestada de horrores.
+    </p>
+    <button onclick="agregarAlCarrito('Resident Evil 4', 55000)">Añadir al carrito</button>
+  </main>
+
+  <script>
+    const precioCOP = new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 0
+    }).format(55000);
+
+    document.getElementById('precio').textContent = precioCOP;
+
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    function agregarAlCarrito(nombre, precio) {
+      carrito.push({ nombre, precio });
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      alert(`"${nombre}" añadido al carrito.`);
+    }
+  </script>
+</body>
+</html>
