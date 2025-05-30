@@ -13,13 +13,20 @@
 
   <main>
     <ul id="lista-carrito"></ul>
-    <p><strong>Total:</strong> $<span id="total">0</span></p>
+    <p><strong>Total:</strong> <span id="total">0</span></p>
   </main>
 
   <script>
     let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
     const lista = document.getElementById("lista-carrito");
     const totalEl = document.getElementById("total");
+
+    // Formateador a pesos colombianos
+    const formateadorCOP = new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 0
+    });
 
     function mostrarCarrito() {
       lista.innerHTML = "";
@@ -28,14 +35,14 @@
       carrito.forEach((producto, index) => {
         const li = document.createElement("li");
         li.innerHTML = `
-          ${producto.nombre} - $${producto.precio.toFixed(2)}
+          ${producto.nombre} - ${formateadorCOP.format(producto.precio)}
           <button onclick="eliminarProducto(${index})">Eliminar</button>
         `;
         lista.appendChild(li);
         total += producto.precio;
       });
 
-      totalEl.textContent = total.toFixed(2);
+      totalEl.textContent = formateadorCOP.format(total);
     }
 
     function eliminarProducto(index) {
