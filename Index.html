@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>LeveUP</title>
+  <link rel="stylesheet" href="estilos.css">
+  <style>
+    .busqueda-container {
+      margin: 20px;
+      text-align: center;
+    }
+
+    #busqueda {
+      padding: 10px;
+      width: 60%;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>LeveUP </h1>
+    <a href="carrito.html">🛒 Carrito</a>
+  </header>
+
+  <!-- 🔍 Barra de búsqueda -->
+  <div class="busqueda-container">
+    <input type="text" id="busqueda" placeholder="Buscar juegos...">
+  </div>
+
+  <main class="productos">
+    <div class="producto">
+      <img src="https://i.pinimg.com/736x/e8/ff/97/e8ff976688f5a8ab890d29937d75ca4e.jpg" alt="Devil May Cry 5">
+      <h2>Devil May Cry 5</h2>
+      <p class="precio" data-precio="50000"></p>
+      <button onclick="agregarAlCarrito('Devil May Cry 5', 50000)">Añadir al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://i.pinimg.com/736x/66/48/ce/6648ce96f855af1ff2642068fca24b53.jpg" alt="Resident Evil 4">
+      <h2>Resident Evil 4</h2>
+      <p class="precio" data-precio="55000"></p>
+      <button onclick="agregarAlCarrito('Resident Evil 4', 55000)">Añadir al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://i.pinimg.com/736x/1a/c3/09/1ac309456a04db26f546feda5b2d7184.jpg" alt="Naruto Storm 4">
+      <h2>Naruto Storm 4</h2>
+      <p class="precio" data-precio="60000"></p>
+      <button onclick="agregarAlCarrito('Naruto Storm 4', 60000)">Añadir al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://i.pinimg.com/736x/e3/60/ed/e360ed20c2d96082b541bc93f6edf64b.jpg" alt="The Last of Us Part II">
+      <h2>The Last of Us Part II</h2>
+      <p class="precio" data-precio="70000"></p>
+      <button onclick="agregarAlCarrito('The Last of Us Part II', 70000)">Añadir al carrito</button>
+    </div>
+  </main>
+
+  <script>
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    function agregarAlCarrito(nombre, precio) {
+      carrito.push({ nombre, precio });
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      alert(`"${nombre}" añadido al carrito.`);
+    }
+
+    // Formatear precios a COP
+    const formateadorCOP = new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 0
+    });
+
+    document.querySelectorAll('.precio').forEach(p => {
+      const precio = p.getAttribute('data-precio');
+      p.textContent = formateadorCOP.format(precio);
+    });
+
+    // 🔍 Filtro de búsqueda
+    document.getElementById('busqueda').addEventListener('input', function () {
+      const termino = this.value.toLowerCase();
+      const productos = document.querySelectorAll('.producto');
+
+      productos.forEach(producto => {
+        const titulo = producto.querySelector('h2').textContent.toLowerCase();
+        producto.style.display = titulo.includes(termino) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
