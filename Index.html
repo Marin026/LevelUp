@@ -15,6 +15,15 @@
       width: 60%;
       font-size: 16px;
     }
+
+    .botones-producto {
+      margin-top: 10px;
+    }
+
+    .botones-producto button,
+    .botones-producto a {
+      margin-right: 5px;
+    }
   </style>
 </head>
 <body>
@@ -33,25 +42,37 @@
       <img src="https://i.pinimg.com/736x/e8/ff/97/e8ff976688f5a8ab890d29937d75ca4e.jpg" alt="Devil May Cry 5">
       <h2>Devil May Cry 5</h2>
       <p class="precio" data-precio="50000"></p>
-      <button onclick="agregarAlCarrito('Devil May Cry 5', 50000)">Añadir al carrito</button>
+      <div class="botones-producto">
+        <button onclick="agregarAlCarrito('Devil May Cry 5', 50000)">Añadir al carrito</button>
+        <a href="detalle-devilmaycry5.html"><button>Ver detalles</button></a>
+      </div>
     </div>
     <div class="producto">
       <img src="https://i.pinimg.com/736x/66/48/ce/6648ce96f855af1ff2642068fca24b53.jpg" alt="Resident Evil 4">
       <h2>Resident Evil 4</h2>
       <p class="precio" data-precio="55000"></p>
-      <button onclick="agregarAlCarrito('Resident Evil 4', 55000)">Añadir al carrito</button>
+      <div class="botones-producto">
+        <button onclick="agregarAlCarrito('Resident Evil 4', 55000)">Añadir al carrito</button>
+        <a href="detalle-re4.html"><button>Ver detalles</button></a>
+      </div>
     </div>
     <div class="producto">
       <img src="https://i.pinimg.com/736x/1a/c3/09/1ac309456a04db26f546feda5b2d7184.jpg" alt="Naruto Storm 4">
       <h2>Naruto Storm 4</h2>
       <p class="precio" data-precio="60000"></p>
-      <button onclick="agregarAlCarrito('Naruto Storm 4', 60000)">Añadir al carrito</button>
+      <div class="botones-producto">
+        <button onclick="agregarAlCarrito('Naruto Storm 4', 60000)">Añadir al carrito</button>
+        <a href="detalle-narutostorm4.html"><button>Ver detalles</button></a>
+      </div>
     </div>
     <div class="producto">
       <img src="https://i.pinimg.com/736x/e3/60/ed/e360ed20c2d96082b541bc93f6edf64b.jpg" alt="The Last of Us Part II">
       <h2>The Last of Us Part II</h2>
       <p class="precio" data-precio="70000"></p>
-      <button onclick="agregarAlCarrito('The Last of Us Part II', 70000)">Añadir al carrito</button>
+      <div class="botones-producto">
+        <button onclick="agregarAlCarrito('The Last of Us Part II', 70000)">Añadir al carrito</button>
+        <a href="detalle-tlou2.html"><button>Ver detalles</button></a>
+      </div>
     </div>
   </main>
 
