@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administrador - Tienda de Videojuegos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-gamepad"></i> GameStore Admin</h3>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="#" data-view="inicio"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="#" data-view="juegos"><i class="fas fa-dice-d20"></i> Juegos</a></li>
+                <li><a href="#" data-view="carrito"><i class="fas fa-shopping-cart"></i> Carrito de Compras <span id="cart-count" class="cart-count">0</span></a></li>
+                <li><a href="#" data-view="clientes"><i class="fas fa-user-circle"></i> Datos Personales</a></li>
+                
+                <li><a href="#" data-view="ajustes"><i class="fas fa-cogs"></i> Ajustes</a></li>
+            </ul>
+        </nav>
+
+        <div class="main-content">
+            <header>
+                <div class="search-wrapper">
+                    <span class="fa fa-search"></span>
+                    <input type="search" placeholder="Buscar juego, pedido, cliente...">
+                </div>
+                <div class="user-wrapper">
+                    <button id="account-btn" class="btn account-btn">
+                        <i class="fas fa-user"></i> Ver Cuenta
+                    </button>
+                    <button id="logout-btn" class="btn logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+                </div>
+            </header>
+
+            <main>
+                <div id="inicio-view" class="main-view">
+                    <h1 class="main-title">Inicio</h1>
+                    <div class="cards">
+                        
+                    <div class="recent-activity">
+                        <h2>Juegos Recién Añadidos</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Título del Juego</th>
+                                    <th>Género</th>
+                                    <th>Plataforma</th>
+                                    <th>Precio</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Cyberpunk 2077</td>
+                                    <td>RPG</td>
+                                    <td>PC, PS5, Xbox Series X</td>
+                                    <td class="price">$59.99</td>
+                                    <td><button class="btn-add-cart"><i class="fas fa-cart-plus"></i> Añadir</button></td>
+                                </tr>
+                                <tr>
+                                    <td>The Witcher 3: Wild Hunt</td>
+                                    <td>RPG</td>
+                                    <td>PC, PS4, Xbox One, Switch</td>
+                                    <td class="price">$39.99</td>
+                                    <td><button class="btn-add-cart"><i class="fas fa-cart-plus"></i> Añadir</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Red Dead Redemption 2</td>
+                                    <td>Acción-Aventura</td>
+                                    <td>PC, PS4, Xbox One</td>
+                                    <td class="price">$49.99</td>
+                                    <td><button class="btn-add-cart"><i class="fas fa-cart-plus"></i> Añadir</button></td>
+                                </tr>
+                                 <tr>
+                                    <td>Elden Ring</td>
+                                    <td>Acción RPG</td>
+                                    <td>PC, PS5, Xbox Series X</td>
+                                    <td class="price">$69.99</td>
+                                    <td><button class="btn-add-cart"><i class="fas fa-cart-plus"></i> Añadir</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="juegos-view" class="main-view hidden">
+                    <h1 class="main-title">Historial de Juegos Comprados</h1>
+                    <div class="purchase-history">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Título del Juego</th>
+                                    <th>Fecha de Compra</th>
+                                    <th>Plataforma</th>
+                                    <th>Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody id="purchase-history-body">
+                                </tbody>
+                        </table>
+                        <p id="empty-history-message" class="hidden">No hay juegos en tu historial de compras.</p>
+                    </div>
+                </div>
+
+                <div id="carrito-view" class="main-view hidden">
+                    <h1 class="main-title">Carrito de Compras</h1>
+                    <div class="cart-container">
+                        <div class="cart-items">
+                             <table>
+                                <thead>
+                                    <tr>
+                                        <th>Juego</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Subtotal</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cart-table-body">
+                                    </tbody>
+                            </table>
+                            <p id="empty-cart-message">El carrito está vacío.</p>
+                        </div>
+                        <div class="cart-summary">
+                            <h3>Resumen del Pedido</h3>
+                            <div class="summary-row">
+                                <span>Subtotal:</span>
+                                <span id="cart-subtotal">$0.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Impuestos (10%):</span>
+                                <span id="cart-tax">$0.00</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Total:</span>
+                                <span id="cart-total">$0.00</span>
+                            </div>
+                            <button class="btn btn-checkout">Proceder al Pago</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="clientes-view" class="main-view hidden">
+                    <h1 class="main-title">Datos Personales</h1>
+                     <p>Gestión de datos personales de clientes aparecerá aquí.</p>
+                </div>
+
+                <div id="scripts-view" class="main-view hidden">
+                    <h1 class="main-title">Scripts de Python</h1>
+                    <p>Ejecuta scripts de mantenimiento y automatización para el backend.</p>
+                    <div class="scripts-list">
+                        <div class="script-item">
+                            <div class="script-header">
+                                <div>
+                                    <h3>Generar Reporte de Ventas</h3>
+                                    <p>Crea un archivo CSV con las ventas del último mes.</p>
+                                </div>
+                                <div class="script-actions">
+                                    <button class="btn btn-secondary btn-view-code">Ver Código</button>
+                                    <button class="btn btn-run-script" data-script-name="sales_report">Ejecutar</button>
+                                </div>
+                            </div>
+                            <div class="code-container hidden">
+                                <pre><code class="language-python">
+import csv
+from datetime import datetime, timedelta
+
+def generate_sales_report():
+    print("Iniciando la generación del reporte de ventas...")
+    # Simulación de obtención de datos de la base de datos
+    sales_data = [
+        {'id': 1, 'game': 'Elden Ring', 'date': '2023-10-15', 'amount': 69.99},
+        {'id': 2, 'game': 'Cyberpunk 2077', 'date': '2023-10-18', 'amount': 59.99},
+        {'id': 3, 'game': 'The Witcher 3', 'date': '2023-10-22', 'amount': 39.99},
+    ]
+    
+    filename = f"sales_report_{datetime.now().strftime('%Y_%m_%d')}.csv"
+    
+    with open(filename, 'w', newline='') as csvfile:
+        fieldnames = ['id', 'game', 'date', 'amount']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for sale in sales_data:
+            writer.writerow(sale)
+            
+    print(f"Reporte '{filename}' generado exitosamente.")
+
+generate_sales_report()
+                                </code></pre>
+                            </div>
+                        </div>
+
+                        <div class="script-item">
+                             <div class="script-header">
+                                <div>
+                                    <h3>Limpiar Cache de la Base de Datos</h3>
+                                    <p>Borra la caché de Redis para mejorar el rendimiento.</p>
+                                </div>
+                                <div class="script-actions">
+                                     <button class="btn btn-secondary btn-view-code">Ver Código</button>
+                                     <button class="btn btn-run-script" data-script-name="clear_cache">Ejecutar</button>
+                                </div>
+                            </div>
+                             <div class="code-container hidden">
+                                <pre><code class="language-python">
+import redis
+
+def clear_database_cache():
+    print("Conectando al servidor de Redis...")
+    # r = redis.Redis(host='localhost', port=6379, db=0)
+    print("Conexión exitosa (simulado).")
+    
+    print("Limpiando todas las claves de la caché...")
+    # keys_deleted = r.flushdb()
+    keys_deleted = 1845 # Simulación
+    print(f"{keys_deleted} claves eliminadas.")
+    print("Caché de la base de datos limpiada correctamente.")
+
+clear_database_cache()
+                                </code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="console-output">
+                        <h3><i class="fas fa-terminal"></i> Consola de Ejecución</h3>
+                        <pre id="console-pre"></pre>
+                    </div>
+                </div>
+
+                <div id="ajustes-view" class="main-view hidden">
+                    <h1 class="main-title">Ajustes</h1>
+                    <p>Opciones de configuración aparecerán aquí.</p>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+</html>
